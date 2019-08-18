@@ -8,6 +8,7 @@
   1-3.問題点  
     オブジェクト指向について理解しきれていない  
     springbootについて理解できていない  
+    GitHub(git、リポジトリ)の使い方を理解できていない  
 2.環境構築  
   下記URLから最新版のeclipseをダウンロード  
   http://mergedoc.osdn.jp/  
@@ -17,5 +18,5 @@
   (ProjectはGradle、言語はJava、Groupは任意、  
   DependenciesはWeb,Thymeleaf,JPA,Devtools,MySQLを選択)  
   ダウンロードしたzipファイルを展開してeclipseにインポート  
-  (既存のGradleプロジェクトを選択、プロジェクトルートディレクトリとしてダウンロード、展開したものを選択)  
+  (既存のGradleプロジェクトを選択、プロジェクトルートディレクトリとしてダウンロードして展開したものを選択)    
   
