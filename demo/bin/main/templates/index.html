@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>ToDoリスト</title>
+		<style>
+			body{
+				background: #eeeeee;
+				font-family: Meiryo
+			}
+			div{
+				background: #ffffff;
+				width: 300px;
+				padding: 10px;
+				text-align: center;
+				border: 1px solid #cccccc;
+				margin: 0px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>
+				<a href = "http://abehiroshi.la.coocan.jp/">ToDoリスト</a>
+			</h1>
+			<p class="msg" th:text="${msg}"></p>
+			<form method="post" action="/">
+				<p>ToDo名<input type="text" name="name" th:value="${value}"/></p>
+				<p>期限<input type="text" name="period" th:value_2="${value_2}"/></p>
+				<p><input type="submit" value="送信"/></p>
+			</form>
+		</div>
+	</body>
+</html>
