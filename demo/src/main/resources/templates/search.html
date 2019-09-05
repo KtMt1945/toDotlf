@@ -16,12 +16,6 @@
 				border: 1px solid #cccccc;
 				margin: 0px auto;
 			}
-			pre{
-				font-size:13pt;
-				color:gray;
-				padding:5px 10px;
-				border:1px solid gray;
-			}
 		</style>
 	</head>
 	<body>
@@ -29,13 +23,6 @@
 			<h1>
 				<a href = "http://localhost:8080/">ToDoリスト</a>
 			</h1>
-			<pre th:text="${msg}">please wait...</pre>
-			<p class="msg" th:text="${msg}"></p>
-			<form method="post" action="/send">
-				<p>ToDo名<input type="text" name="name" th:value="${value}"/></p>
-				<p>期限<input type="text" name="period" th:value_2="${value_2}"/></p>
-				<p><input type="submit" value="送信"/></p>
-			</form>
 		</div>
 	</body>
 </html>

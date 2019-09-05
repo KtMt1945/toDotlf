@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>Spring boot MySQL</title>
+	</head>
+	<body>
+		<h1 th:text="title"></h1>
+		<table>
+			<form method="post" action="/" th:object="${formModel}">
+				<tr><input type="text" name="id" th:value="*{id}"/></tr>
+				<tr><input type="text" name="name" th:value="*{name}"/></tr>
+				<tr><input type="text" name="limits" th:value="*{limits}"/></tr>
+				<tr><input type="submit"/></tr>
+			<form>
+		</table>
+		<table>
+			<tr th:each="emp : ${emplist}"th:object="${emp}">
+				<td th:text="*{id}"></td>
+				<td th:text="*{name}"></td>
+				<td th:text="*{limits}"></td>
+			</tr>
+		</table>
+	</body>
+</html>
