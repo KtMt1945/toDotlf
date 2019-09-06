@@ -2,23 +2,56 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8">
-		<title>Spring boot MySQL</title>
+		<title>ToDoList</title>
+		<style>
+			tr{margin:5px;}
+			th{padding:5px;color:white;background:darkgray;}
+			td{padding:5px;color:black;background:#f0f0f0;}
+		</style>
 	</head>
 	<body>
-		<h1 th:text="title"></h1>
 		<table>
-			<form method="post" action="/" th:object="${formModel}">
-				<tr><input type="text" name="id" th:value="*{id}"/></tr>
-				<tr><input type="text" name="name" th:value="*{name}"/></tr>
-				<tr><input type="text" name="limits" th:value="*{limits}"/></tr>
-				<tr><input type="submit"/></tr>
-			<form>
+			<tr>
+				<td width="50%"><h1><a href="http://localhost:8080/" style="float:left">ToDo</a></h1></td>
+				<td width="50%"><h1><a href="http://localhost:8080/search/" style="float:right">検索</a></h1></td>
+			</tr>
 		</table>
 		<table>
-			<tr th:each="emp : ${emplist}"th:object="${emp}">
+			<form method="post" action="/" th:object="${formModel}">
+				<!--
+				<tr>
+					<td><label for="id">ID</label></td>
+					<td><input type="text" name="id" th:value="*{id}"/></td>
+				</tr>
+				-->
+				<tr>
+					<td><label for="name">TITLE</label></td>
+					<td><input type="text" name="name" th:value="*{name}"/></td>
+				</tr>
+				<tr>
+					<td><label for="limits">DEADLINE</label></td>
+					<td><input type="text" name="limits" th:value="*{limits}"/></td>
+				</tr>
+				<tr><td><input type="submit" value="ADD TODO!!!"/></td></tr>
+			</form>
+		</table>
+		<p th:if="${NULLcheck}">ToDo Does Not Exist</p>
+		<table>
+			<tr>
+				<!--  
+				<th>ID</th>
+				-->
+				<th>TITLE</th>
+				<th>DEADLINE</th>
+			</tr>
+			<tr th:each="emp : ${emplist}"th:object="${emp}" >
+				<!--  
 				<td th:text="*{id}"></td>
+				-->
+				
 				<td th:text="*{name}"></td>
 				<td th:text="*{limits}"></td>
+				<td><form method="post" action="/editor"><input type="submit" value="編集"/></form></td>
 			</tr>
 		</table>
 	</body>

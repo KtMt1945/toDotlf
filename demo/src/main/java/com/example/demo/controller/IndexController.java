@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,14 @@ public class IndexController {
 	@RequestMapping(value = "/",method=RequestMethod.GET)
 	public ModelAndView dbpage(@ModelAttribute("formModel") Employee ptodo , ModelAndView mav) {
 		List<Employee> emplist=empRepository.findAll();
-		mav.addObject("title","title");
+		//mav.addObject("NULLcheck",ptodo.getName() == null);
+		if(emplist == null) {
+			emplist = new ArrayList<Employee>();
+		}
+		mav.addObject("NULLcheck",emplist.size() == 0);
 		mav.addObject("emplist",emplist);
+		mav.addObject("trueValue","ToDo Does Not Exist");
+		mav.addObject("falseValue","");
 		mav.setViewName("dbpage");
 		return mav;
 	}
