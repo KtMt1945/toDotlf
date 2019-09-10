@@ -1,0 +1,34 @@
+<!-- 作成途中 -->
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>ToDoEditor</title>
+		<style>
+			tr{margin:5px;}
+			th{padding:5px;color:white;background:darkgray;}
+			td{padding:5px;color:black;background:#f0f0f0;}
+		</style>
+	</head>
+	<body>
+		<table align="center">
+			<tr>
+				<td width="50%"><h1><a href="http://localhost:8080/"style="float:center">ToDo</a></h1></td>
+				<td width="50%"><h1><a href="http://localhost:8080/search/"style="float:center"></a></h1></td>
+			</tr>
+		</table>
+		<table align="center">
+			<form method="post" action="/" th:object="${tde}">
+				<tr>
+					<td><label for="name">TITLE</label></td>
+					<td><input type="text" name="name" th:value="*{name}"></td>
+				</tr>
+				<tr>
+					<td><label for="limitdate">DEADLINE</label></td>
+					<td><input type="text" name="limitdate" th:value="*{limitdate}"></td>
+				</tr>
+				<tr><td><input type="submit" value="EDIT TODO!!!"></td></tr>
+			</form>
+		</table>
+	</body>
+</html>
