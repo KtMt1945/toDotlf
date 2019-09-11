@@ -14,20 +14,24 @@
 		<table align="center">
 			<tr>
 				<td width="50%"><h1><a href="http://localhost:8080/"style="float:center">ToDo</a></h1></td>
-				<td width="50%"><h1><a href="http://localhost:8080/search/"style="float:center"></a></h1></td>
+				<td width="50%"><h1><a href="http://localhost:8080/search/"style="float:center">検索</a></h1></td>
 			</tr>
 		</table>
+		<h1 align="center">EDIT</h1>
 		<table align="center">
-			<form method="post" action="/" th:object="${tde}">
+			<form method="post" action="#" th:action="'/editor?id='+${id}">
 				<tr>
 					<td><label for="name">TITLE</label></td>
-					<td><input type="text" name="name" th:value="*{name}"></td>
+					<td><input type="text" name="name"  th:value="${name}" placeholder="title" required /></td>
 				</tr>
 				<tr>
 					<td><label for="limitdate">DEADLINE</label></td>
-					<td><input type="text" name="limitdate" th:value="*{limitdate}"></td>
+					<td><input type="text" name="limitdate" th:value="${#dates.format(limitdate,'yyyy/MM/dd')}" placeholder="yyyy/MM/dd" pattern="\d\d\d\d/\d\d/\d\d" required/></td>
 				</tr>
-				<tr><td><input type="submit" value="EDIT TODO!!!"></td></tr>
+				<tr><td style="background:#d3d3d3"><input type="submit" value="EDIT TODO!!!"></td></tr>
+			</form>
+			<form method="post" action="#" th:action="'/delete?id='+${id}">
+				<tr><td style="background:#d3d3d3"><input type="submit" value="DELETE TODO..."></td></tr>
 			</form>
 		</table>
 	</body>

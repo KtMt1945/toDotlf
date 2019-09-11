@@ -30,10 +30,10 @@
 				</tr>
 				<tr>
 					<td><label for="limitdate">DEADLINE</label></td>
-					<td><input type="text" name="limitdate" th:value="*{limitdate}" placeholder="yyyy/mm/dd"  pattern="\d\d\d\d/\d\d/\d\d" required/></td>
+					<td><input type="text" name="limitdate" th:value="*{limitdate}" placeholder="yyyy/MM/dd"  pattern="\d\d\d\d/\d\d/\d\d" required/></td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="ADD TODO!!!"/></td>
+					<td style="background:#d3d3d3"><input type="submit" value="ADD TODO!!!"/></td>
 				</tr>
 			</form>
 		</table>
@@ -56,11 +56,11 @@
 				
 
 				<td th:text="*{name}"></td>
-				<td th:text="*{limitdate}" ></td>
-				<td><form method="post" action="/editor"><input type="submit" value="EDIT"/></form></td>
+				<td th:text="*{#dates.format(limitdate,'yyyy/MM/dd')}" ></td>
+				<td style="background:#d3d3d3"><form method="get" action="#" th:action="'/editor'+*{id}"><input type="submit" value="EDIT"/></form></td>
 				<td th:if="*{completec} eq null">INCOMPLETE</td>
 				<td th:if="*{completec} neq null" th:text="*{completec}"></td>
-				<td><form  method="post" action="#" th:action="'/'+*{id}"><label ><input name="_method" type="hidden" value="PUT"></label>
+				<td style="background:#d3d3d3"><form  method="post" action="#" th:action="'/'+*{id}" ><label ><input name="_method" type="hidden" value="PUT"></label>
 				<input type="submit" value="TURN"/></form></td>
 			</tr>
 		</table>

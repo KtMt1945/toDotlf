@@ -1,16 +1,19 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.ToDoEntity;
@@ -24,7 +27,7 @@ public class IndexController {
 	ToDoEntityRepository tdeRepository;
 	@RequestMapping(value = "/",method=RequestMethod.GET)
 	public ModelAndView dbpage(@ModelAttribute("formModel") ToDoEntity todotable , ModelAndView mav ) {
-		List<ToDoEntity> tdelist=tdeRepository.findAll();
+		List<ToDoEntity> tdelist=tdeRepository.findAll(new Sort(Sort.DEFAULT_DIRECTION.DESC,"id"));
 		if(tdelist == null) {
 			tdelist = new ArrayList<ToDoEntity>();
 		}
@@ -64,7 +67,7 @@ public class IndexController {
 			tdeRepository.saveAndFlush(todo.get());
 			return new ModelAndView("redirect:/");
 		}else {
-			todo.get().setCompletec(null);;
+			todo.get().setCompletec(null);
 			tdeRepository.saveAndFlush(todo.get());
 			return new ModelAndView("redirect:/");
 		}
@@ -74,11 +77,29 @@ public class IndexController {
 	@RequestMapping(value = "/editor{id}",method=RequestMethod.GET)
 	public ModelAndView editor(@ModelAttribute("formModel") ToDoEntity todotable ,@PathVariable int id, ModelAndView mav ) {
 		Optional<ToDoEntity> todo_edit = tdeRepository.findById(id);
-		mav.addObject("tde",todo_edit.get());
+		mav.addObject("id",id);
+		mav.addObject("name",todo_edit.get().getName());
+		mav.addObject("limitdate",todo_edit.get().getLimitdate());
 		mav.setViewName("editor");
 		return mav;
 	}
-
+	
+	@RequestMapping(value = "/editor",method=RequestMethod.POST)
+	public ModelAndView ediform(@RequestParam ("id") Integer id,@RequestParam ("name") String name,@RequestParam ("limitdate") Date limitdate,ModelAndView mav ) {
+		System.out.println(name);
+		Optional<ToDoEntity> todo_edited = tdeRepository.findById(id);
+		todo_edited.get().setName(name);
+		todo_edited.get().setLimitdate(limitdate);
+		todo_edited.get().setCompletec(null);
+		tdeRepository.saveAndFlush(todo_edited.get());
+		return new ModelAndView("redirect:/");
+	}
+	
+	@RequestMapping(value = "/delete",method=RequestMethod.POST)
+	public ModelAndView delete(@RequestParam("id") Integer id,ModelAndView mav) {
+		tdeRepository.deleteById(id);
+		return new ModelAndView("redirect:/");
+	}
 	//ToDo
 	/*
 	@RequestMapping(value="/editor",method=RequestMethod.GET)
