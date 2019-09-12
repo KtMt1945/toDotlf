@@ -2,27 +2,55 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8">
-		<title>ToDoリスト</title>
+		<title>ToDosearch</title>
 		<style>
-			body{
-				background: #eeeeee;
-				font-family: Meiryo
-			}
-			div{
-				background: #ffffff;
-				width: 300px;
-				padding: 10px;
-				text-align: center;
-				border: 1px solid #cccccc;
-				margin: 0px auto;
-			}
+			tr{margin:5px;}
+			th{padding:5px;clor:white;background:darkgray;}
+			td{padding:5px;color:black;background:#f0f0f0;}
 		</style>
 	</head>
 	<body>
-		<div>
-			<h1>
-				<a href = "http://localhost:8080/">ToDoリスト</a>
-			</h1>
-		</div>
+		<table align="center">
+			<tr>
+				<td><h1><a href="http://localhost:8080" style="float:center">ToDo</a></h1>
+			</tr>
+		</table>
+		<h1 align="center">SEARCH</h1>
+		<table align="center">
+			<form method="post" action="/search"  th:objcet="${formModel}">
+				<tr>
+					<td><input type="text" name="name" th:value="*{name}" required/></td>
+					<td style="background:#d3d3d3"><input type="submit" value="SEARCH!"/></td>
+				</tr>
+			</form>
+		</table>
+		<h1 align="center">RESULT</h1>
+		<h1 align="center" th:if="${searchcheck}">Not Exist</h1>
+		<table align="center">
+			<tr>
+				
+				<th>ID</th>
+				
+				<th>TITLE</th>
+				<th>DEADLINE</th>
+				<th>EDIT</th>
+				<th>PROGRESS</th>
+				<th>TURN</th>
+			</tr>
+			<tr th:each="result : ${searchdata}"th:object="${result}" th:unless="${searchcheck}">
+				<th:block th:if="*{completec} eq null">
+				<td th:text="*{id}"></td>
+				
+
+				<td th:text="*{name}"></td>
+				<td th:text="*{#dates.format(limitdate,'yyyy/MM/dd')}" ></td>
+				<td style="background:#d3d3d3"><form method="get" action="#" th:action="'/editor'+*{id}"><input type="submit" value="EDIT"/></form></td>
+				<td th:if="*{completec} eq null">INCOMPLETE</td>
+				<td th:if="*{completec} neq null" th:text="*{completec}"></td>
+				<td style="background:#d3d3d3"><form  method="post" action="#" th:action="'/search'+*{id}" ><label ><input name="_method" type="hidden" value="PUT"></label>
+				<input type="submit" value="TURN"/></form></td>
+				</th:block>
+			</tr>
+		</table>
 	</body>
 </html>

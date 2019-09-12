@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.entity.ToDoEntity;
 import com.example.demo.entityrepository.ToDoEntityRepository;
 
-
 @Controller
 public class IndexController {
 	//TOP
@@ -99,6 +98,37 @@ public class IndexController {
 	public ModelAndView delete(@RequestParam("id") Integer id,ModelAndView mav) {
 		tdeRepository.deleteById(id);
 		return new ModelAndView("redirect:/");
+	}
+	
+	@RequestMapping(value = "/search",method=RequestMethod.GET)
+	public ModelAndView search(ModelAndView mav) {
+		mav.setViewName("search");
+		return mav;
+	}
+	
+	@RequestMapping(value="/search",method=RequestMethod.POST)
+	public ModelAndView searchput(ModelAndView mav,@RequestParam("name") String name) {
+		List<ToDoEntity> searchdata = tdeRepository.findByname(name);
+		if(searchdata == null) {
+			searchdata = new ArrayList<ToDoEntity>();
+		}
+		mav.addObject("searchcheck",searchdata.size() == 0);
+		mav.addObject("searchdata",searchdata);
+		mav.setViewName("search");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/search{id}",method=RequestMethod.PUT)
+	@Transactional(readOnly=false)
+	public ModelAndView searchcomplete(@ModelAttribute("formModel") ToDoEntity todotable ,@PathVariable int id, ModelAndView mav) {
+		Optional<ToDoEntity> todo = tdeRepository.findById(id);
+		List<ToDoEntity> redata = tdeRepository.findByname(todo.get().getName());
+		mav.addObject("searchdata",redata);
+		todo.get().setCompletec("COMPLETE");
+		tdeRepository.saveAndFlush(todo.get());
+		mav.setViewName("search");
+		return mav;
+		//return new ModelAndView("redirect:'/search");
 	}
 	//ToDo
 	/*
