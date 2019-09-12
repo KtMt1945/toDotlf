@@ -29,4 +29,5 @@
   DependenciesはWeb,Thymeleaf,JPA,Devtools,MySQLを選択)  
   ダウンロードしたzipファイルを展開してeclipseにインポート  
   (既存のGradleプロジェクトを選択、プロジェクトルートディレクトリとしてダウンロードして展開したものを選択)    
-  
+参考  
+https://www.dbonline.jp/mysql/  
